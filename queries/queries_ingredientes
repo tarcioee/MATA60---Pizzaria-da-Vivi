@@ -1,0 +1,20 @@
+--Requisito 6
+--Query para cadastrar um novo ingrediente:
+INSERT INTO Ingrediente (nm_ingrediente, tipo)
+VALUES ('Queijo', 'lacticinio');
+
+--Query para associar ingredientes a um produto (por exemplo, associando queijo a uma pizza):
+INSERT INTO Produto_ingrediente (ce_produto, ce_ingrediente, gramas_ingrediente)
+VALUES (1, 1, 50);  -- Substitua os IDs pelos reais
+
+--Query para deletar ingrediente
+DELETE FROM Ingrediente
+WHERE cp_id_ingrediente = 1;  -- Substitua pelo ID do ingrediente que deseja excluir
+
+--Query para visualizar os ingredientes de uma pizza específica:
+SELECT p.nm_produto, i.nm_ingrediente, pi.gramas_ingrediente
+FROM Produto p
+JOIN Produto_ingrediente pi ON p.cp_id_produto = pi.ce_produto
+JOIN Ingrediente i ON pi.ce_ingrediente = i.cp_id_ingrediente
+WHERE p.cp_id_produto = 1;  -- substitua pelo ID do produto (pizza)
+
