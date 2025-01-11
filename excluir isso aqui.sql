@@ -1,4 +1,5 @@
-CREATE TABLE IF NOT EXISTS Cliente 
+
+CREATE TABLE Cliente 
 ( 
     cp_id_cliente INT PRIMARY KEY,  
     nm_cliente VARCHAR(100) NOT NULL, 
@@ -10,19 +11,20 @@ CREATE TABLE IF NOT EXISTS Cliente
    CHECK (categoria_cliente IN ('bronze', 'prata', 'ouro')) 
 ); 
 
-CREATE TABLE IF NOT EXISTS Pedido 
+CREATE TABLE Pedido 
 ( 
     cp_id_pedido INT PRIMARY KEY,  
     ce_cliente INT NOT NULL,  
-    data_pedido DATE,  
+    data_pedido DATE DATE DEFAULT CURRENT_TIMESTAMP,
     status_pedido VARCHAR(20) NOT NULL DEFAULT 'Em aberto', 
     valor_total DECIMAL(10, 2), 
+    observações VARCHAR(255),
     CHECK (status_pedido IN ('Em aberto', 'Concluído', 'Cancelado')),
     CHECK (valor_total>0),
     FOREIGN KEY (ce_cliente) REFERENCES Cliente(cp_id_cliente)
 ); 
 
-CREATE TABLE IF NOT EXISTS Cargo 
+CREATE TABLE Cargo 
 ( 
     cp_id_cargo INT PRIMARY KEY,  
     nm_cargo VARCHAR(100) NOT NULL,  
@@ -31,7 +33,7 @@ CREATE TABLE IF NOT EXISTS Cargo
     CHECK (salario > 0)
 ); 
 
-CREATE TABLE IF NOT EXISTS Funcionario 
+CREATE TABLE Funcionario 
 ( 
     cp_id_funcionario INT PRIMARY KEY,  
     ce_cargo INT NOT NULL,  
@@ -42,7 +44,7 @@ CREATE TABLE IF NOT EXISTS Funcionario
     FOREIGN KEY (ce_cargo) REFERENCES Cargo(cp_id_cargo) 
 ); 
 
-CREATE TABLE IF NOT EXISTS Produto 
+CREATE TABLE Produto 
 ( 
     cp_id_produto INT PRIMARY KEY,  
     tipo_produto VARCHAR(100),  
@@ -56,7 +58,7 @@ CREATE TABLE IF NOT EXISTS Produto
    CHECK (qtd_disponivel > 0)
 ); 
 
-CREATE TABLE IF NOT EXISTS Ingrediente 
+CREATE TABLE Ingrediente 
 ( 
     cp_id_ingrediente INT PRIMARY KEY,  
     nm_ingrediente VARCHAR(100),
@@ -64,7 +66,7 @@ CREATE TABLE IF NOT EXISTS Ingrediente
     CHECK (tipo IN ('proteina', 'vegetal', 'farinha', 'lacticinio', 'outro')) 
 ); 
 
-CREATE TABLE IF NOT EXISTS Funcionario_pedido
+CREATE TABLE Funcionario_pedido
 ( 
     cp_id_pedido_id_funcionario INT PRIMARY KEY,  
     ce_funcionario INT NOT NULL,  
@@ -73,18 +75,18 @@ CREATE TABLE IF NOT EXISTS Funcionario_pedido
     FOREIGN KEY (ce_pedido) REFERENCES Pedido(cp_id_pedido)  -- Correção da chave estrangeira
 ); 
 
-CREATE TABLE IF NOT EXISTS Produto_pedido 
+CREATE TABLE Produto_pedido 
 ( 
     cp_id_pedido_id_produto INT PRIMARY KEY,  
     ce_produto INT NOT NULL,  
     ce_pedido INT NOT NULL, 
-    qtd_compradas INT,    
+    qtd_compradas INT,   
+    FOREIGN KEY (ce_produto) REFERENCES Produto(cp_id_produto), 
     CHECK (qtd_compradas > 0),
-	FOREIGN KEY (ce_produto) REFERENCES Produto(cp_id_produto),
     FOREIGN KEY (ce_pedido) REFERENCES Pedido(cp_id_pedido)  
 ); 
 
-CREATE TABLE IF NOT EXISTS Produto_ingrediente 
+CREATE TABLE Produto_ingrediente 
 ( 
     cp_id_produto_id_ingrediente INT PRIMARY KEY,  
     ce_produto INT NOT NULL,  
@@ -94,3 +96,8 @@ CREATE TABLE IF NOT EXISTS Produto_ingrediente
     FOREIGN KEY ( ce_produto) REFERENCES Produto(cp_id_produto),  
     FOREIGN KEY (ce_ingrediente) REFERENCES Ingrediente(cp_id_ingrediente)  
 ); 
+
+
+
+
+
