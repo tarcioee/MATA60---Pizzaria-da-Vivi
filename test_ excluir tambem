@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS Funcionario
     email_funcionario VARCHAR(100),
     tel_funcionario VARCHAR(15),
     tarefas_ativas INT,
-    status_funcionario status_funcionario_enum NOT NULL DEFAULT 'Indisponivel'
+    status_funcionario status_funcionario_enum NOT NULL DEFAULT 'Indisponível'
 ); 
 
 CREATE TABLE IF NOT EXISTS Produto 

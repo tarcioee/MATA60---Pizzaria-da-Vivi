@@ -8,37 +8,20 @@ UPDATE Pedido
 SET status_pedido = 'Concluído'
 WHERE cp_id_pedido = 1;  -- substitua pelo ID do pedido
 
+--Excluir um produto específico
+DELETE FROM Produto
+WHERE cp_id_produto = 10;
+
+
 --Requisito 5
---Query de rotina que cuida de tudo relacionado a pedido
---reduzir quantidade disponível, atualizar valor_total e atribuir funcionários ao pedido
--- 1. Reduzir a quantidade disponível dos produtos no estoque
-UPDATE Produto
-SET qtd_disponivel = qtd_disponivel - pp.qtd_compradas
-FROM Produto_pedido pp
-WHERE Produto.cp_id_produto = pp.ce_produto
-  AND pp.ce_pedido = <id_do_pedido>;
-
--- 2. Atualizar o valor_total do pedido com base no preço e quantidade comprada dos produtos
-WITH TotalPedido AS (
-    SELECT pp.ce_pedido, SUM(pr.preco_produto * pp.qtd_compradas) AS novo_valor_total
-    FROM Produto_pedido pp
-    JOIN Produto pr ON pp.ce_produto = pr.cp_id_produto
-    WHERE pp.ce_pedido = <id_do_pedido>
-    GROUP BY pp.ce_pedido
-)
-UPDATE Pedido p
-SET valor_total = tp.novo_valor_total
-FROM TotalPedido tp
-WHERE p.cp_id_pedido = tp.ce_pedido;
-
--- 3. Atribuir um entregador e um cozinheiro disponíveis ao pedido
+-- Atribuir um entregador e um cozinheiro disponíveis ao pedido
 WITH FuncionariosDisponiveis AS (
     -- Atribui um entregador disponível
     SELECT f.cp_id_funcionario
     FROM Funcionario f
     JOIN Cargo c ON f.ce_cargo = c.cp_id_cargo
     WHERE c.nm_cargo = 'entregador' 
-      AND f.status_funcionario = 'Disponivel'
+      AND f.status_funcionario = 'Disponível'
     LIMIT 1
 ),
 CozinheirosDisponiveis AS (
@@ -47,13 +30,14 @@ CozinheirosDisponiveis AS (
     FROM Funcionario f
     JOIN Cargo c ON f.ce_cargo = c.cp_id_cargo
     WHERE c.nm_cargo = 'cozinheiro' 
-      AND f.status_funcionario = 'Disponivel'
+      AND f.status_funcionario = 'Disponível'
     LIMIT 1
 )
 INSERT INTO Funcionario_pedido (ce_funcionario, ce_pedido, papel)
 SELECT fd.cp_id_funcionario, <id_do_pedido>, 'Entregador' FROM FuncionariosDisponiveis fd
 UNION ALL
 SELECT cd.cp_id_funcionario, <id_do_pedido>, 'Cozinheiro' FROM CozinheirosDisponiveis cd;
+
 
 --Query para definir dados dos produtos, endereço e nome dos clientes para cada pedido em aberto que um funcionário especifico está responsável
 SELECT 
@@ -73,5 +57,5 @@ JOIN Cliente c ON p.ce_cliente = c.cp_id_cliente
 JOIN Funcionario_pedido fp ON p.cp_id_pedido = fp.ce_pedido
 JOIN Funcionario f ON fp.ce_funcionario = f.cp_id_funcionario
 WHERE p.status_pedido = 'Em aberto'
-  AND f.nm_funcionario = '<nome_do_funcionario>';
+  AND f.nm_funcionario = 'Robespierre';
 

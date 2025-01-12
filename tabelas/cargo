@@ -1,0 +1,6 @@
+INSERT INTO Cargo (nm_cargo, salario, horas_semanais) VALUES
+('Atendente', 1500.00, 40),
+('Cozinheiro', 2100.00, 40),
+('Entregador', 1500.00, 40),
+('Gerente', 3000.00, 40),
+('Caixa', 1400.00, 40);

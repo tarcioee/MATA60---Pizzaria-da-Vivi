@@ -1,4 +1,6 @@
-CREATE TYPE status_funcionario_enum AS ENUM ('Indisponivel', 'Disponivel');
+-- Drop the existing ENUM type if it exists
+DROP TYPE IF EXISTS status_funcionario_enum;
+CREATE TYPE status_funcionario_enum AS ENUM ('Indisponível', 'Disponível');
 
 CREATE TABLE IF NOT EXISTS Cliente 
 ( 
@@ -38,7 +40,7 @@ CREATE TABLE IF NOT EXISTS Funcionario
     email_funcionario VARCHAR(100),
     tel_funcionario VARCHAR(15),
     tarefas_ativas INT,
-    status_funcionario status_funcionario_enum NOT NULL DEFAULT 'Indisponivel'
+    status_funcionario status_funcionario_enum NOT NULL DEFAULT 'Indisponível'
 ); 
 
 CREATE TABLE IF NOT EXISTS Produto 

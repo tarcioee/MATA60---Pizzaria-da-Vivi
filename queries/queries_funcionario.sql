@@ -1,11 +1,11 @@
 --Requisito 3
 --Query para cadastro de um novo funcionário:
 INSERT INTO Funcionario (ce_cargo, nm_funcionario, cpf_funcionario, email_funcionario, tel_funcionario, status_funcionario)
-VALUES (1, 'Maria Oliveira', '98765432100', 'maria@pizzavivi.com', '987654321', 'Disponivel');
+VALUES (1, 'Maria Oliveira', '98765432100', 'maria@pizzavivi.com', '987654321', 'Disponível');
 
 --Query para atualizar a disponibilidade de um funcionário
 UPDATE Funcionario
-SET status_funcionario = 'Indisponivel'
+SET status_funcionario = 'Indisponível'
 WHERE cp_id_funcionario = 1;  -- substitua pelo ID do funcionário
 
 --Query para excluir um funcionário
@@ -15,9 +15,16 @@ WHERE cp_id_funcionario = 1;  -- Substitua pelo ID do funcionário que deseja ex
 --Query para ver funcionários disponíveis
 SELECT nm_funcionario, cpf_funcionario, ce_cargo, status_funcionario
 FROM Funcionario
-WHERE status_funcionario = 'Disponivel';
+WHERE status_funcionario = 'Disponível';
 
---Query para ver funcionários de um determinado cargo:
+--Query para ver funcionários do cargo "entregador" disponíveis
+SELECT f.nm_funcionario, f.cpf_funcionario, f.status_funcionario
+FROM Funcionario f
+JOIN Cargo c ON f.ce_cargo = c.cp_id_cargo
+WHERE c.nm_cargo = 'entregador'
+  AND f.status_funcionario = 'Disponível';
+
+--Query para ver todos funcionários de um determinado cargo:
 SELECT f.nm_funcionario, f.cpf_funcionario, f.tel_funcionario, f.status_funcionario
 FROM Funcionario f
 JOIN Cargo c ON f.ce_cargo = c.cp_id_cargo

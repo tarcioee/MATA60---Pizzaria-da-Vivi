@@ -2,7 +2,8 @@
 ALTER TABLE Cliente 
     ADD PRIMARY KEY (cp_id_cliente), 
     ADD UNIQUE (cpf_cliente),
-    ADD CHECK (categoria_cliente IN ('bronze', 'prata', 'ouro'));
+    ADD CHECK (categoria_cliente IN ('bronze', 'prata', 'ouro')),
+    ADD CHECK (qtd_compras>=0);
 
 -- Constraints para a tabela Pedido
 ALTER TABLE Pedido
@@ -20,6 +21,7 @@ ALTER TABLE Cargo
 ALTER TABLE Funcionario
     ADD PRIMARY KEY (cp_id_funcionario),
     ADD UNIQUE (cpf_funcionario),
+    ADD CHECK ( tarefas_ativas>=0 ),
     ADD FOREIGN KEY (ce_cargo) REFERENCES Cargo(cp_id_cargo) ON DELETE CASCADE;
 
 -- Constraints para a tabela Produto

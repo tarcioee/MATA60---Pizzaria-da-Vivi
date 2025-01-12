@@ -3,6 +3,22 @@
 INSERT INTO Ingrediente (nm_ingrediente, tipo)
 VALUES ('Queijo', 'lacticinio');
 
+--Alterar o nome ou tipo de um ingrediente específico
+UPDATE Ingrediente
+SET nm_ingrediente = 'Queijo Mozarela', 
+    tipo = 'lacticinio'
+WHERE cp_id_ingrediente = 3;
+
+--Para excluir um ingrediente específico da tabela Ingrediente:
+DELETE FROM Ingrediente
+WHERE cp_id_ingrediente = 3;
+
+--Consultar tipo de um ingrediente
+SELECT cp_id_ingrediente, nm_ingrediente, tipo
+FROM Ingrediente
+WHERE cp_id_ingrediente = 5;
+
+
 --Query para associar ingredientes a um produto (por exemplo, associando queijo a uma pizza):
 INSERT INTO Produto_ingrediente (ce_produto, ce_ingrediente, gramas_ingrediente)
 VALUES (1, 1, 50);  -- Substitua os IDs pelos reais

@@ -15,6 +15,12 @@ FROM Produto_pedido pp
 WHERE Produto.cp_id_produto = pp.ce_produto
   AND pp.ce_pedido = <id_do_pedido>;
 
+--Consultar o preço de um produto
+SELECT cp_id_produto, nm_produto, preco_produto
+FROM Produto
+WHERE cp_id_produto = 10;
+
+
 --Requisito 4
 --Query para ver pizzas e aperitivos sem ingrediente do tipo "animal"
 SELECT p.nm_produto, p.tipo_produto
@@ -31,6 +37,21 @@ LEFT JOIN Produto_ingrediente pi ON p.cp_id_produto = pi.ce_produto
 LEFT JOIN Ingrediente i ON pi.ce_ingrediente = i.cp_id_ingrediente
 WHERE (p.tipo_produto IN ('pizza', 'aperitivo')) 
   AND (i.tipo != 'lacticinio' OR i.tipo IS NULL);
+
+--Requisito 7
+--Query para reajustar os valores dos produtos com base em uma porcentagem:
+UPDATE Produto
+SET preco_produto = preco_produto * (1 + <porcentagem_aumento> / 100);
+
+--definir a porcentagem de promoção de todos os produtos 
+UPDATE Produto
+SET porcentagem_promoção = 20;
+
+--definir a porcentagem de promoção para produto especifico
+UPDATE Produto
+SET porcentagem_promoção = 10
+WHERE cp_id_produto = 3;
+
 
 --Requisito 8
 --Query para gerar um relatório de estoque:
