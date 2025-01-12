@@ -97,4 +97,5 @@ INSERT INTO Cliente (nm_cliente, tel_cliente, endereco, cpf_cliente, qtd_compras
 ('Simone Souza', '11987654416', 'Rua da Estrela, 15227', '12345678996', 134, 'ouro'),
 ('Patrícia Almeida', '11987654417', 'Rua do Jardim das Rosas, 15428', '12345678997', 5, 'bronze'),
 ('Adriana Oliveira', '11987654418', 'Rua da Montanha, 15629', '12345678998', 75, 'prata'),
+('Robespierre estudante', '11987654418', 'Rua da Montanha, 15629', '72345678998', 0, 'bronze'),
 ('Marcelo Souza', '11987654419', 'Rua das Andorinhas, 15830', '12345678999', 16, 'prata');
