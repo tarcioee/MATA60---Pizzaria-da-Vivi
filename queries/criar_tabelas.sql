@@ -1,3 +1,5 @@
+CREATE TYPE status_funcionario_enum AS ENUM ('Indisponivel', 'Disponivel');
+
 CREATE TABLE IF NOT EXISTS Cliente 
 ( 
     cp_id_cliente SERIAL,  
@@ -35,27 +37,28 @@ CREATE TABLE IF NOT EXISTS Funcionario
     cpf_funcionario VARCHAR(11),  
     email_funcionario VARCHAR(100),
     tel_funcionario VARCHAR(15),
-    status_funcionario VARCHAR(15) ENUM('Indisponivel', 'Disponivel') NOT NULL DEFAULT 'Indisponivel'
+    tarefas_ativas INT,
+    status_funcionario status_funcionario_enum NOT NULL DEFAULT 'Indisponivel'
 ); 
 
 CREATE TABLE IF NOT EXISTS Produto 
 ( 
     cp_id_produto SERIAL,  
-    tipo_produto VARCHAR(100),  
-    nm_produto VARCHAR(100), 
+    tipo_produto VARCHAR(100) NOT NULL,  
+    nm_produto VARCHAR(100) NOT NULL, 
     preco_produto DECIMAL(10, 2),  
     descricao VARCHAR(255),
     tamanho_pizza VARCHAR(20),  
     volume_bebida VARCHAR(20),    
     qtd_disponivel INT,
-    porcentagem_promoção DECIMAL(10, 2)
+    porcentagem_promoção DECIMAL(10, 2) DEFAULT 0
 ); 
 
 CREATE TABLE IF NOT EXISTS Ingrediente 
 ( 
     cp_id_ingrediente SERIAL,  
-    nm_ingrediente VARCHAR(100),
-    tipo VARCHAR(20)
+    nm_ingrediente VARCHAR(100) NOT NULL,
+    tipo VARCHAR(20) NOT NULL
 ); 
 
 CREATE TABLE IF NOT EXISTS Funcionario_pedido
@@ -73,7 +76,7 @@ CREATE TABLE IF NOT EXISTS Produto_pedido
     cp_id_pedido_id_produto SERIAL,  
     ce_produto INT NOT NULL,  
     ce_pedido INT NOT NULL, 
-    qtd_compradas INT  
+    qtd_compradas INT NOT NULL DEFAULT 1
 ); 
 
 CREATE TABLE IF NOT EXISTS Produto_ingrediente 
@@ -81,5 +84,5 @@ CREATE TABLE IF NOT EXISTS Produto_ingrediente
     cp_id_produto_id_ingrediente SERIAL,  
     ce_produto INT NOT NULL,  
     ce_ingrediente INT NOT NULL,  
-    gramas_ingrediente INT  
+    gramas_ingrediente INT DEFAULT 1
 ); 
