@@ -6,7 +6,7 @@ VALUES ('pizza', 'Pizza Margherita', 25.50, 'Pizza com molho de tomate, mussarel
 --Query para atualizar o estoque de um produto:
 UPDATE Produto
 SET qtd_disponivel = qtd_disponivel + 10
-WHERE cp_id_produto = 1;  -- substitua pelo ID do produto
+WHERE cp_id_produto = 1; 
 
 -- Query pra retirar produtos comprados do estoque
 UPDATE Produto
@@ -16,10 +16,16 @@ WHERE Produto.cp_id_produto = pp.ce_produto
   AND pp.ce_pedido = <id_do_pedido>;
 
 --Consultar o preço de um produto
-SELECT cp_id_produto, nm_produto, preco_produto
-FROM Produto
-WHERE cp_id_produto = 10;
-
+SELECT 
+    cp_id_produto, 
+    nm_produto, 
+    preco_produto, 
+    porcentagem_promoção,
+    preco_produto * (1 - porcentagem_promoção / 100) AS preco_com_desconto
+FROM 
+    Produto
+WHERE 
+    cp_id_produto = 10; 
 
 --Requisito 4
 --Query para ver pizzas e aperitivos sem ingrediente do tipo "animal"
