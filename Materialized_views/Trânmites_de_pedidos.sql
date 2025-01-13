@@ -35,3 +35,4 @@ LEFT JOIN
 GROUP BY 
     p.cp_id_pedido, p.data_pedido, p.status_pedido, p.valor_total, c.nm_cliente, f1.nm_funcionario, f2.nm_funcionario;
 
+--REFRESH MATERIALIZED VIEW mv_pedidos_status_entrega;

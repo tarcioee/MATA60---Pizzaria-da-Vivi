@@ -12,6 +12,20 @@ WHERE cp_id_cliente = 1; -- substitua pelo ID do cliente
 DELETE FROM Cliente
 WHERE cp_id_cliente = 1;  -- Substitua pelo ID do cliente que deseja excluir
 
+--query para consultar os dados de um cliente
+SELECT 
+    cp_id_cliente, 
+    nm_cliente, 
+    tel_cliente, 
+    endereco, 
+    cpf_cliente, 
+    qtd_compras, 
+    categoria_cliente
+FROM 
+    Cliente
+WHERE 
+    cp_id_cliente = 1;  -- substitua o '1' pelo ID do cliente que deseja consultar
+
 --Query para obter o histórico de compras de um cliente:
 SELECT * 
 FROM Pedido

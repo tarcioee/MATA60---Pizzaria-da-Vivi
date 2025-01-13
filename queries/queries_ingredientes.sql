@@ -13,6 +13,10 @@ WHERE cp_id_ingrediente = 3;
 DELETE FROM Ingrediente
 WHERE cp_id_ingrediente = 3;
 
+--Query para consultar os tipos possíveis de ingrediente
+SELECT DISTINCT tipo
+FROM Ingrediente;
+
 --Consultar tipo de um ingrediente
 SELECT cp_id_ingrediente, nm_ingrediente, tipo
 FROM Ingrediente

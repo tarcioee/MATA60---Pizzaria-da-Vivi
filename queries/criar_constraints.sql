@@ -8,7 +8,7 @@ ALTER TABLE Cliente
 -- Constraints para a tabela Pedido
 ALTER TABLE Pedido
     ADD PRIMARY KEY (cp_id_pedido), 
-    ADD CHECK (status_pedido IN ('Em aberto', 'Concluído', 'Cancelado')),
+    ADD CHECK (status_pedido IN ('Não-confirmado','Em aberto', 'Concluído', 'Cancelado')),
     ADD CHECK (valor_total > 0),
     ADD FOREIGN KEY (ce_cliente) REFERENCES Cliente(cp_id_cliente) ON DELETE CASCADE;
 

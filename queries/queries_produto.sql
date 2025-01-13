@@ -27,6 +27,25 @@ FROM
 WHERE 
     cp_id_produto = 10; 
 
+--Consultar quais são os produtos mais vendidos em cada categoria
+SELECT 
+    pr.tipo_produto, 
+    pr.nm_produto,
+    SUM(pp.qtd_compradas) AS total_vendido
+FROM 
+    Produto pr
+JOIN 
+    Produto_pedido pp ON pr.cp_id_produto = pp.ce_produto
+JOIN 
+    Pedido p ON pp.ce_pedido = p.cp_id_pedido
+WHERE 
+    p.status_pedido = 'Concluído'  -- Considera apenas pedidos concluídos
+GROUP BY 
+    pr.tipo_produto, pr.nm_produto
+ORDER BY 
+    pr.tipo_produto, total_vendido DESC;
+
+
 --Requisito 4
 --Query para ver pizzas e aperitivos sem ingrediente do tipo "animal"
 SELECT p.nm_produto, p.tipo_produto

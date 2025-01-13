@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS Pedido
     ce_cliente INT NOT NULL,  
     data_pedido DATE DEFAULT CURRENT_TIMESTAMP,  
     observações VARCHAR(255),
-    status_pedido VARCHAR(20) NOT NULL DEFAULT 'Em aberto', 
+    status_pedido VARCHAR(20) NOT NULL DEFAULT 'Não confirmado', 
     valor_total DECIMAL(10, 2) 
 ); 
 
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS Produto
     cp_id_produto SERIAL,  
     tipo_produto VARCHAR(100) NOT NULL,  
     nm_produto VARCHAR(100) NOT NULL, 
-    preco_produto DECIMAL(10, 2),  
+    preco_produto DECIMAL(10, 2) NOT NULL,  
     descricao VARCHAR(255),
     tamanho_pizza VARCHAR(20),  
     volume_bebida VARCHAR(20),    

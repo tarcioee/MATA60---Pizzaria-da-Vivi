@@ -40,3 +40,21 @@ WHERE c.salario > 2000;  -- Filtra os funcionários que ganham mais de 2000
 SELECT SUM(c.salario) AS total_salarios
 FROM Funcionario f
 JOIN Cargo c ON f.ce_cargo = c.cp_id_cargo;
+
+--Query pra determinar quais funcionários atenderam mais pedidos no último mês
+SELECT 
+    f.nm_funcionario,
+    COUNT(fp.cp_id_pedido) AS total_pedidos_atendidos
+FROM 
+    Funcionario_pedido fp
+JOIN 
+    Funcionario f ON fp.ce_funcionario = f.cp_id_funcionario
+JOIN 
+    Pedido p ON fp.ce_pedido = p.cp_id_pedido
+WHERE 
+    p.status_pedido = 'Concluído'  -- Considera apenas pedidos concluídos
+    AND p.data_pedido >= CURRENT_DATE - INTERVAL '1 month'  -- Filtra os pedidos do último mês
+GROUP BY 
+    f.nm_funcionario
+ORDER BY 
+    total_pedidos_atendidos DESC;

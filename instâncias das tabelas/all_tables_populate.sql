@@ -1,3 +1,4 @@
+--usa esse, professor.
 INSERT INTO Cargo (nm_cargo, salario, horas_semanais) VALUES
 ('Atendente', 1500.00, 40),
 ('Cozinheiro', 2100.00, 40),
